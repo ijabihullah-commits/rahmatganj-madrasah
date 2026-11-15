@@ -1213,7 +1213,7 @@ function startData(){
 try{
   firebase.initializeApp(firebaseConfig);auth=firebase.auth();dbx=firebase.firestore();
   auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(function(e){console.warn(e);});
-  document.getElementById('googleLogin').addEventListener('click',function(){var p=new firebase.auth.GoogleAuthProvider();auth.signInWithRedirect(p).catch(authError);});
+  document.getElementById('googleLogin').addEventListener('click',function(){var p=new firebase.auth.GoogleAuthProvider();auth.signInWithPopup(p).catch(authError);});
   document.getElementById('emailLogin').addEventListener('click',function(){var em=document.getElementById('loginEmail').value.trim(),pw=document.getElementById('loginPassword').value;if(!em||!pw){authMsg('ইমেইল ও পাসওয়ার্ড লিখুন।');return;}auth.signInWithEmailAndPassword(em,pw).catch(authError);});
   document.getElementById('emailSignup').addEventListener('click',function(){var em=document.getElementById('loginEmail').value.trim(),pw=document.getElementById('loginPassword').value;if(!em||pw.length<6){authMsg('ইমেইল দিন এবং অন্তত ৬ অক্ষরের পাসওয়ার্ড দিন।');return;}auth.createUserWithEmailAndPassword(em,pw).then(function(){auth.signOut();authMsg('অ্যাকাউন্ট তৈরি হয়েছে। প্রশাসকের অনুমোদনের পর প্রবেশ করতে পারবেন।');}).catch(authError);});
   document.getElementById('logoutBtn').addEventListener('click',function(){auth.signOut().catch(authError);});
